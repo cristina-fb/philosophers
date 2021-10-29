@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/10/28 15:19:25 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/10/29 10:00:02 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,21 @@ int	ft_atoi(const char *str)
 
 	i = 0;
 	n = 0;
-	while ((str[i] == '\n') || (str[i] == '\v') || (str[i] == '\f')
-		|| (str[i] == '\r') || (str[i] == '\t') || (str[i] == ' '))
-		i++;
-	if (str[i] == '+')
-		i++;
-	if ((str[i] >= '0') && (str[i] <= '9'))
+	if (str)
 	{
-		while ((str[i] >= '0') && (str[i] <= '9'))
-			n = (n * 10) + str[i++] - 48;
-		if ((str[i]) || (n > 2147483647))
-			return (-1);
-		return (n);
+		while ((str[i] == '\n') || (str[i] == '\v') || (str[i] == '\f')
+			|| (str[i] == '\r') || (str[i] == '\t') || (str[i] == ' '))
+			i++;
+		if (str[i] == '+')
+			i++;
+		if ((str[i] >= '0') && (str[i] <= '9'))
+		{
+			while ((str[i] >= '0') && (str[i] <= '9'))
+				n = (n * 10) + str[i++] - 48;
+			if ((str[i]) || (n > 2147483647))
+				return (-1);
+			return (n);
+		}
 	}
 	return (-1);
 }
@@ -38,4 +41,14 @@ int	ft_atoi(const char *str)
 int	ft_isdigit(int c)
 {
 	return ((c >= '0') && (c <= '9'));
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	unsigned char	*ptr;
+
+	ptr = (unsigned char *)malloc(size * count);
+	if (ptr)
+		memset(ptr, 0, size * count);
+	return (ptr);
 }

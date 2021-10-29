@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/10/28 15:30:54 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/10/29 10:32:21 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,38 @@ int	valid_args(int argc, char **argv)
 	return (1);
 }
 
+t_philo	*new_philo(t_data *data, int i)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)ft_calloc(1, sizeof(t_philo *));
+	if (philo)
+	{
+		philo->id = i;
+		philo->n_eat = data->n_eat;
+		philo->fork_r = 0;
+		philo->fork_l = 0;
+	}
+	return (philo);
+}
+
+void	create_philos(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->list = ft_calloc(data->n_philo + 1, sizeof(t_philo *));
+	if (data->list)
+	{
+		while (i < data->n_philo)
+		{
+			data->list[i] = new_philo(data, i);
+			i++;
+		}
+		data->list[i] = 0;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -44,5 +76,6 @@ int	main(int argc, char **argv)
 		data.n_eat = ft_atoi(argv[5]);
 	else
 		data.n_eat = -1;
+	create_philos(&data);
 	return (0);
 }
