@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/10/29 10:32:21 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/01 15:48:36 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,42 +28,58 @@ int	valid_args(int argc, char **argv)
 	return (1);
 }
 
-t_philo	*new_philo(t_data *data, int i)
+void	*function(void *p)
 {
 	t_philo	*philo;
+	
+	philo = (t_philo *)p;
+	return (0);
+}
 
-	philo = (t_philo *)ft_calloc(1, sizeof(t_philo *));
+t_philo	*new_philo(t_data *data, int i)
+{
+	t_philo			*philo;
+
+	philo = (t_philo *)ft_calloc(1, sizeof(t_philo));
 	if (philo)
 	{
 		philo->id = i;
-		philo->n_eat = data->n_eat;
-		philo->fork_r = 0;
-		philo->fork_l = 0;
+		philo->data = data;
 	}
 	return (philo);
 }
 
-void	create_philos(t_data *data)
+pthread_t	*create_philos(t_data *data)
 {
-	int	i;
+	int				i;
+	pthread_t		*tp;
 
 	i = 0;
-	data->list = ft_calloc(data->n_philo + 1, sizeof(t_philo *));
-	if (data->list)
+	tp = (pthread_t *)ft_calloc(data->n_philo, sizeof(pthread_t));
+	data->fork = (int *)ft_calloc(data->n_philo, sizeof(int));
+	data->mx = (pthread_mutex_t *)ft_calloc(data->n_philo, sizeof(pthread_mutex_t));
+	pthread_mutex_init(&data->mx_w, NULL);
+	while (i < data->n_philo)
 	{
-		while (i < data->n_philo)
-		{
-			data->list[i] = new_philo(data, i);
-			i++;
-		}
-		data->list[i] = 0;
+		pthread_mutex_init(&data->mx[i], NULL);
+		i++;
 	}
+	i = 0;
+	while (i < data->n_philo)
+	{
+		pthread_create(&tp[i], NULL, &function, new_philo(data, i));
+		i++;
+	}
+	return (tp);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_data		data;
+	pthread_t	*tp;
+	int			i;
 
+	i = 0;
 	if ((argc < 5) || (argc > 6))
 		exit(0);
 	if (!valid_args(argc, argv))
@@ -76,6 +92,11 @@ int	main(int argc, char **argv)
 		data.n_eat = ft_atoi(argv[5]);
 	else
 		data.n_eat = -1;
-	create_philos(&data);
+	tp = create_philos(&data);
+	while (i < data.n_philo)
+	{
+		pthread_join(tp[i], NULL);
+		i++;
+	}
 	return (0);
 }
