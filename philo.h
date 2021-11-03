@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/01 15:39:05 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/03 13:17:16 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct s_data
 	int				t_sleep;
 	int				n_eat;
 	int				*fork;
+	long int		sec;
+	long int		usec;
+	struct timeval	tv;
 	pthread_mutex_t	*mx;
 	pthread_mutex_t	mx_w;
 }	t_data;
@@ -34,6 +37,8 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int		id;
+	int		f1;
+	int		f2;
 	t_data	*data;
 }	t_philo;
 
