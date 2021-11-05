@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/05 10:17:46 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:57:19 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ long int	get_time(t_philo *philo)
 {
 	long int	time;
 
-	gettimeofday(&philo->data->tv, NULL);
-	time = (((philo->data->tv.tv_sec * 1000000) + philo->data->tv.tv_usec)
-			- ((philo->data->sec * 1000000) + philo->data->usec)) / 1000;
+	gettimeofday(&philo->d->tv, NULL);
+	time = (((philo->d->tv.tv_sec * 1000000) + philo->d->tv.tv_usec)
+			- philo->d->t_init) / 1000;
 	return (time);
 }

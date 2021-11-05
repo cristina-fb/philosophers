@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/05 10:41:23 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/05 13:37:20 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 void	philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->mx[philo->f1]);
-	pthread_mutex_lock(&philo->data->mx_w);
+	pthread_mutex_lock(&philo->d->mutex[philo->f1]);
+	pthread_mutex_lock(&philo->d->mutex_w);
 	printf("%ld %d has taken a fork\n", get_time(philo), philo->id);
-	pthread_mutex_unlock(&philo->data->mx_w);
-	pthread_mutex_lock(&philo->data->mx[philo->f2]);
-	pthread_mutex_lock(&philo->data->mx_w);
+	pthread_mutex_unlock(&philo->d->mutex_w);
+	pthread_mutex_lock(&philo->d->mutex[philo->f2]);
+	pthread_mutex_lock(&philo->d->mutex_w);
 	printf("%ld %d has taken a fork\n", get_time(philo), philo->id);
 	printf("%ld %d is eating\n", get_time(philo), philo->id);
-	pthread_mutex_unlock(&philo->data->mx_w);
-	gettimeofday(&philo->last_eat, NULL);
-	usleep(philo->data->t_eat * 1000);
-	pthread_mutex_unlock(&philo->data->mx[philo->f1]);
-	pthread_mutex_unlock(&philo->data->mx[philo->f2]);
+	pthread_mutex_unlock(&philo->d->mutex_w);
+	//gettimeofday(&philo->last_eat, NULL);
+	usleep(philo->d->t_eat * 1000);
+	pthread_mutex_unlock(&philo->d->mutex[philo->f1]);
+	pthread_mutex_unlock(&philo->d->mutex[philo->f2]);
 }
 
 void	philo_sleep(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->mx_w);
+	pthread_mutex_lock(&philo->d->mutex_w);
 	printf("%ld %d is sleeping\n", get_time(philo), philo->id);
-	pthread_mutex_unlock(&philo->data->mx_w);
-	usleep(philo->data->t_sleep * 1000);
+	pthread_mutex_unlock(&philo->d->mutex_w);
+	usleep(philo->d->t_sleep * 1000);
 }
 
 void	philo_think(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->mx_w);
+	pthread_mutex_lock(&philo->d->mutex_w);
 	printf("%ld %d is thinking\n", get_time(philo), philo->id);
-	pthread_mutex_unlock(&philo->data->mx_w);
+	pthread_mutex_unlock(&philo->d->mutex_w);
 }
 
 void	*actions(void *p)
