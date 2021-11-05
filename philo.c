@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/05 13:38:07 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/05 17:07:26 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,31 @@ int	main(int argc, char **argv)
 {
 	t_data			data;
 	int				i;
-	//struct timeval	tv;
+	struct timeval	tv;
+	pthread_t		*tp;
+	
 	if ((argc < 5) || (argc > 6))
 		exit(0);
 	if (!valid_args(argc, argv))
 		exit(0);
 	init_data(&data, argc, argv);
-	create_philos(&data);
-	i = 0;
-	/*while (1)
-	{
-		if (((((tv.tv_sec * 1000000) + tv.tv_usec) - ((tp[0]->last_eat->tv.tv_sec * 1000000) + tp[0]->last_eat->tv.tv_usec)) / 1000) >= data.t_die)
-			pthread_detach(tp[0]);
-	}*/
+	tp = create_philos(&data);
 	while (1)
 	{
-		//comprobar muerte
+		i = 0;
+		while (i < data.n_philo)
+		{
+			gettimeofday(&tv, NULL);
+			if (get_time(data.last_eat[i], tv) >= data.t_die)
+			{
+				pthread_detach(tp[i]);
+				pthread_mutex_lock(&data.mutex_w);
+				printf("%ld %d died\n", get_time(data.last_eat[i], tv), i);
+				pthread_mutex_unlock(&data.mutex_w);
+				exit(0);
+			}
+			i++;
+		}
 	}
 	return (0);
 }

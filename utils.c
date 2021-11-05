@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/05 15:57:19 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/05 16:47:37 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,11 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-long int	get_time(t_philo *philo)
+long int	get_time(struct timeval tv1, struct timeval tv2)
 {
 	long int	time;
 
-	gettimeofday(&philo->d->tv, NULL);
-	time = (((philo->d->tv.tv_sec * 1000000) + philo->d->tv.tv_usec)
-			- philo->d->t_init) / 1000;
+	time = (((tv2.tv_sec * 1000000) + tv2.tv_usec)
+			- ((tv1.tv_sec * 1000000) + tv1.tv_usec)) / 1000;
 	return (time);
 }

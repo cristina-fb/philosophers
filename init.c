@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/05 15:58:11 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/05 16:51:15 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	init_data(t_data *data, int argc, char **argv)
 	else
 		while (i < data->n_philo)
 			data->n_eat[i++] = -1;
-	data->last_eat = (long int *)ft_calloc(data->n_philo, sizeof(long int));
+	data->last_eat = (struct timeval *)ft_calloc(data->n_philo,
+			sizeof(struct timeval));
 	data->mutex = (pthread_mutex_t *)ft_calloc(data->n_philo,
 			sizeof(pthread_mutex_t));
 	i = 0;
@@ -72,8 +73,7 @@ void	*create_philos(t_data *data)
 	pthread_t		*tp;
 
 	tp = (pthread_t *)ft_calloc(data->n_philo, sizeof(pthread_t));
-	gettimeofday(&data->tv, NULL);
-	data->t_init = (((data->tv.tv_sec) * 1000000) + data->tv.tv_usec);
+	gettimeofday(&data->t_init, NULL);
 	i = 0;
 	while (i < data->n_philo)
 		data->last_eat[i++] = data->t_init;
