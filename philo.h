@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/03 13:17:16 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/05 10:39:54 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,18 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int		id;
-	int		f1;
-	int		f2;
-	t_data	*data;
+	int				id;
+	int				f1;
+	int				f2;
+	struct timeval	last_eat;
+	t_data			*data;
 }	t_philo;
 
-void	*ft_calloc(size_t count, size_t size);
-int		ft_atoi(const char *str);
-int		ft_isdigit(int c);
+int			ft_isdigit(int c);
+int			ft_atoi(const char *str);
+long int	get_time(t_philo *philo);
+void		init_data(t_data *data, int argc, char **argv);
+void		*actions(void *p);
+void		*ft_calloc(size_t count, size_t size);
+pthread_t	*create_philos(t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/10/29 10:00:02 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/05 10:17:46 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,14 @@ void	*ft_calloc(size_t count, size_t size)
 	if (ptr)
 		memset(ptr, 0, size * count);
 	return (ptr);
+}
+
+long int	get_time(t_philo *philo)
+{
+	long int	time;
+
+	gettimeofday(&philo->data->tv, NULL);
+	time = (((philo->data->tv.tv_sec * 1000000) + philo->data->tv.tv_usec)
+			- ((philo->data->sec * 1000000) + philo->data->usec)) / 1000;
+	return (time);
 }

@@ -6,7 +6,7 @@
 #    By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 18:19:54 by crisfern          #+#    #+#              #
-#    Updated: 2021/10/28 15:06:48 by crisfern         ###   ########.fr        #
+#    Updated: 2021/11/05 10:35:03 by crisfern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 HEADER = philo.h
 SRC = philo.c \
+		init.c \
+		actions.c \
 		utils.c
 OBJ = $(SRC:.c=.o)
 
