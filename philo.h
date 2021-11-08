@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/05 17:01:20 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/08 10:28:58 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
 	int				t_eat;
 	int				t_sleep;
 	int				*n_eat;
+	int				*death;
 	struct timeval	t_init;
 	struct timeval	*last_eat;
 	pthread_mutex_t	*mutex;
