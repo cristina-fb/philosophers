@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/08 16:14:25 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/10 11:35:30 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,12 @@ void	death_loop(t_data *data, pthread_t *tp)
 				&& !data->death[i])
 			{
 				data->death[i] = 1;
-				pthread_detach(tp[i]);
 				pthread_mutex_lock(&data->mutex_w);
 				printf("%ld %d died\n", get_time(data->t_init, tv), i);
 				pthread_mutex_unlock(&data->mutex_w);
 			}
 			if (all_death(data))
-				exit(0);
+				exit(0);  //LIBERAR Y SALIR
 			i++;
 		}
 	}
@@ -71,7 +70,7 @@ int	main(int argc, char **argv)
 {
 	t_data			data;
 	pthread_t		*tp;
-	
+	 
 	if ((argc < 5) || (argc > 6))
 		exit(0);
 	if (!valid_args(argc, argv))
