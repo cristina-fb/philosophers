@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/10 11:35:30 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/11 12:21:13 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,7 @@ static int	valid_args(int argc, char **argv)
 	return (1);
 }
 
-static int	all_death(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->n_philo)
-		if (data->death[i++] == 0)
-			return (0);
-	return (1);
-}
-
-void	death_loop(t_data *data, pthread_t *tp)
+void	death_loop(t_data *data)
 {
 	int				i;
 	struct timeval	tv;
@@ -51,16 +40,13 @@ void	death_loop(t_data *data, pthread_t *tp)
 		while (i < data->n_philo)
 		{
 			gettimeofday(&tv, NULL);
-			if ((get_time(data->last_eat[i], tv) >= data->t_die)
-				&& !data->death[i])
+			if (get_time(data->last_eat[i], tv) > data->t_die)
 			{
-				data->death[i] = 1;
 				pthread_mutex_lock(&data->mutex_w);
 				printf("%ld %d died\n", get_time(data->t_init, tv), i);
 				pthread_mutex_unlock(&data->mutex_w);
-			}
-			if (all_death(data))
 				exit(0);  //LIBERAR Y SALIR
+			}
 			i++;
 		}
 	}
@@ -77,6 +63,6 @@ int	main(int argc, char **argv)
 		exit(0);
 	init_data(&data, argc, argv);
 	tp = create_philos(&data);
-	death_loop(&data, tp);
+	death_loop(&data);
 	return (0);
 }

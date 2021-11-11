@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/08 13:16:41 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/10 15:20:56 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,17 @@ void	*ft_calloc(size_t count, size_t size)
 
 long int	get_time(struct timeval tv1, struct timeval tv2)
 {
-	long int	time;
+	return ((((tv2.tv_sec * 1000000) + tv2.tv_usec)
+			- ((tv1.tv_sec * 1000000) + tv1.tv_usec)) / 1000);
+}
 
-	time = (((tv2.tv_sec * 1000000) + tv2.tv_usec)
-			- ((tv1.tv_sec * 1000000) + tv1.tv_usec)) / 1000;
-	return (time);
+void	ft_usleep(int a)
+{
+	struct timeval	tve;
+	struct timeval	tvi;
+
+	gettimeofday(&tvi, NULL);
+	gettimeofday(&tve, NULL);
+	while (get_time(tvi, tve) < a)
+		gettimeofday(&tve, NULL);
 }
