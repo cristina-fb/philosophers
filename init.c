@@ -6,13 +6,13 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/11 12:20:34 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/12 10:54:17 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_data_2(t_data *data, int argc, char **argv)
+int	init_data_2(t_data *data, int argc, char **argv)
 {
 	int	i;
 
@@ -24,14 +24,15 @@ void	init_data_2(t_data *data, int argc, char **argv)
 		else
 			data->n_eat[i] = -1;
 		if (pthread_mutex_init(&data->mutex[i], NULL))
-			exit(0); //LIBERAR Y SALIR
+			return (0);
 		i++;
 	}
 	if (pthread_mutex_init(&data->mutex_w, NULL))
-		exit(0); //LIBERAR Y SALIR
+		return (0);
+	return (1);
 }
 
-void	init_data(t_data *data, int argc, char **argv)
+int	init_data(t_data *data, int argc, char **argv)
 {
 	data->n_philo = ft_atoi(argv[1]);
 	data->t_die = ft_atoi(argv[2]);
@@ -43,9 +44,13 @@ void	init_data(t_data *data, int argc, char **argv)
 	data->mutex = (pthread_mutex_t *)ft_calloc(data->n_philo,
 			sizeof(pthread_mutex_t));
 	if (data->n_eat && data->last_eat && data->mutex)
-		init_data_2(data, argc, argv);
+	{
+		if (!init_data_2(data, argc, argv))
+			return (0);
+	}
 	else
-		exit(0); //LIBERAR Y SALIR
+		return (0);
+	return (1);
 }
 
 static t_philo	*new_philo(t_data *data, int i)
@@ -91,11 +96,9 @@ void	*create_philos(t_data *data)
 		{
 			data->last_eat[i] = data->t_init;
 			if (pthread_create(&tp[i], NULL, &actions, new_philo(data, i)))
-				exit(0); //LIBERAR Y SALIR
+				return (0);
 			i++;
 		}
 	}
-	else
-		exit(0); //LIBERAR Y SALIR
 	return (tp);
 }

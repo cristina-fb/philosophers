@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/11 12:18:28 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/12 10:10:46 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_philo
 int			ft_isdigit(int c);
 int			ft_atoi(const char *str);
 long int	get_time(struct timeval tv1, struct timeval tv2);
-void		init_data(t_data *data, int argc, char **argv);
+int			init_data(t_data *data, int argc, char **argv);
 void		*actions(void *p);
 void		*ft_calloc(size_t count, size_t size);
 void		*create_philos(t_data *data);
