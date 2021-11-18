@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/15 09:44:05 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:50:20 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef struct s_data
 	int				t_eat;
 	int				t_sleep;
 	int				*n_eat;
-	int				*ended;
+	int				end;
+	int				all;
 	struct timeval	t_init;
 	struct timeval	*last_eat;
 	pthread_mutex_t	*mutex;
@@ -50,4 +51,6 @@ void		*actions(void *p);
 void		*ft_calloc(size_t count, size_t size);
 void		*create_philos(t_data *data);
 void		ft_usleep(int a);
+void		destroy_mutex(t_data *data, int n);
+void		free_callocs(t_data *data);
 #endif
