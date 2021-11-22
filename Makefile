@@ -6,7 +6,7 @@
 #    By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 18:19:54 by crisfern          #+#    #+#              #
-#    Updated: 2021/11/17 15:16:10 by crisfern         ###   ########.fr        #
+#    Updated: 2021/11/22 13:34:52 by crisfern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ HEADER = philo.h
 SRC = philo.c \
 		init.c \
 		actions.c \
-		utils.c
+		utils.c \
+		utils2.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
