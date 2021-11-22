@@ -6,16 +6,11 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/22 13:41:09 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:25:44 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	leaks(void)
-{
-	system("leaks philo");
-}
 
 static int	valid_args(int argc, char **argv)
 {
@@ -39,7 +34,7 @@ static int	valid_args(int argc, char **argv)
 	return (1);
 }
 
-int	death_loop(t_data *data, int i, long int time)
+static int	death_loop(t_data *data, int i, long int time)
 {
 	struct timeval	tv;
 
@@ -74,7 +69,6 @@ int	main(int argc, char **argv)
 	pthread_t		*tp;
 	int				i;
 
-	atexit(leaks);
 	i = 0;
 	if (!valid_args(argc, argv))
 		return (0);
