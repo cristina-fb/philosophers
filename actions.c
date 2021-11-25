@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/22 15:27:07 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:56:10 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	philo_eat(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->d->mutex_w);
 	philo->d->last_eat[philo->id] = philo->tv;
-	philo->d->n_eat[philo->id]++;
+	philo->d->n_eat[philo->id]--;
 	ft_usleep(philo->d->t_eat);
 	pthread_mutex_unlock(&philo->d->mutex[philo->f1]);
 	pthread_mutex_unlock(&philo->d->mutex[philo->f2]);
@@ -71,10 +71,10 @@ void	*actions(void *p)
 	philo = (t_philo *)p;
 	if (philo)
 	{
-		if ((philo->id % 2) == 0)
-			usleep(100);
 		while (1)
 		{
+			if ((philo->id % 2) == 0)
+				usleep(100);
 			philo_fork(philo);
 			philo_eat(philo);
 			philo_sleep(philo);

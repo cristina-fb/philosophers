@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/22 15:25:44 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:53:57 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	death_loop(t_data *data, int i, long int time)
 		while ((++i < data->n_philo))
 		{
 			gettimeofday(&tv, NULL);
-			if (data->n_eat[i] == 0)
+			if (data->n_eat[i] == data->n_eat_ini)
 				time = get_time(data->t_init, tv);
 			else
 				time = get_time(data->last_eat[i], tv);

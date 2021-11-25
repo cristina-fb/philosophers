@@ -6,20 +6,23 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/22 13:36:40 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:55:49 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_mutex(t_data *data)
+int	init_mutex(t_data *data, int argc)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->n_philo)
 	{
-		data->n_eat[i] = 0;
+		if (argc == 6)
+			data->n_eat[i] = data->n_eat_ini;
+		else
+			data->n_eat[i] = -1;
 		if (pthread_mutex_init(&data->mutex[i], NULL))
 		{
 			destroy_mutex(data, i);
@@ -48,7 +51,7 @@ int	init_data(t_data *data, int argc, char **argv)
 	if (argc == 6)
 		data->n_eat_ini = ft_atoi(argv[5]);
 	else
-		data->n_eat_ini = -1;
+		data->n_eat_ini = 0;
 	data->n_eat = (int *)ft_calloc(data->n_philo, sizeof(int));
 	data->last_eat = (struct timeval *)ft_calloc(data->n_philo,
 			sizeof(struct timeval));
@@ -56,7 +59,7 @@ int	init_data(t_data *data, int argc, char **argv)
 			sizeof(pthread_mutex_t));
 	if (data->n_eat && data->last_eat && data->mutex)
 	{
-		if (!init_mutex(data))
+		if (!init_mutex(data, argc))
 			return (0);
 	}
 	else

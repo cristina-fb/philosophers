@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/22 13:30:37 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:45:35 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	all_eat(t_data *data)
 	i = 0;
 	while (i < data->n_philo)
 	{
-		if (data->n_eat[i] != data->n_eat_ini)
+		if (data->n_eat[i] > 0)
 			return (0);
 		i++;
 	}
