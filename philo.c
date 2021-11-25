@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/25 14:53:57 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/25 16:47:41 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	death_loop(t_data *data, int i, long int time)
 			if (time > data->t_die)
 			{
 				pthread_mutex_lock(&data->mutex_w);
-				printf("%ld %d died\n", get_time(data->t_init, tv), i + 1);
+				printf("%ld %d died\n", time, i + 1);
 				data->end = 1;
 				pthread_mutex_unlock(&data->mutex_w);
 				return (0);

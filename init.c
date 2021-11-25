@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/25 14:55:49 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/25 16:50:17 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	init_data(t_data *data, int argc, char **argv)
 	if (argc == 6)
 		data->n_eat_ini = ft_atoi(argv[5]);
 	else
-		data->n_eat_ini = 0;
+		data->n_eat_ini = -1;
 	data->n_eat = (int *)ft_calloc(data->n_philo, sizeof(int));
 	data->last_eat = (struct timeval *)ft_calloc(data->n_philo,
 			sizeof(struct timeval));

@@ -6,7 +6,7 @@
 /*   By: crisfern <crisfern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 18:19:54 by crisfern          #+#    #+#             */
-/*   Updated: 2021/11/25 14:56:10 by crisfern         ###   ########.fr       */
+/*   Updated: 2021/11/25 16:56:07 by crisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	*actions(void *p)
 				usleep(100);
 			philo_fork(philo);
 			philo_eat(philo);
+			if (philo->d->n_eat[philo->id] == 0)
+				break ;
 			philo_sleep(philo);
 			philo_think(philo);
 			if (philo->d->end)
